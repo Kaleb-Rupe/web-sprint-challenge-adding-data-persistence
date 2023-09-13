@@ -13,7 +13,7 @@ router.get("/:resource_id", (req, res, next) => {
 //eslint-disable-next-line
 router.use("*", (err, req, res, next) => {
   res.status(500).json({
-    customeMessage: "Something went wrong inside the recipes router",
+    customeMessage: "Something went wrong inside the resource router",
     message: err.message,
     stack: err.stack,
   });

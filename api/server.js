@@ -14,7 +14,7 @@ server.use("/api/task", taskRouter);
 
 //eslint-disable-next-line
 server.use("*", (req, res, next) => {
-  res.json({ api: `up ${this.route}` });
+  res.json({ api: `up ${req.baseUrl}` });
 });
 
 module.exports = server;
