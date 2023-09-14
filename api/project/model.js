@@ -3,28 +3,36 @@ const db = require("../../data/dbConfig");
 
 async function getAllProjects() {
   const allProjects = await db("projects");
+  const result = allProjects.map((row) => {
+    return {
+      ...row,
+      project_completed: row.project_completed ? true : false,
+    };
+  });
 
-  return allProjects;
+  return result;
 }
 
 async function getProjectById(project_id) {
-  const projectRows = await db("projects as p")
-    .select(
-      "p.project_id",
-      "p.project_name",
-      "p.project_description",
-      "p.project_completed"
-    )
-    .where("p.project_id", project_id);
+  try {
+    const rows = await db("projects as p").where("project_id", project_id);
 
-  const project = {
-    project_id: projectRows[0].project_id,
-    project_name: projectRows[0].project_name,
-    project_description: projectRows[0].project_description,
-    project_completed: projectRows[0].project_completed == 1 ? true : false,
-  };
-
-  return project;
+    return rows;
+  } catch (err) {
+    return err;
+  }
 }
 
-module.exports = { getProjectById, getAllProjects };
+async function addProjects(project) {
+  const [newID] = await db("projects").insert(project);
+  const newPost = await db("projects").where("project_id", newID);
+  const result = newPost.map((row) => {
+    return {
+      ...row,
+      project_completed: row.project_completed ? true : false,
+    };
+  });
+  return result[0];
+}
+
+module.exports = { getProjectById, getAllProjects, addProjects };

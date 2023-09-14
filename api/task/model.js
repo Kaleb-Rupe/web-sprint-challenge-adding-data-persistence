@@ -1,15 +1,7 @@
-// build your `Task` model here
-
 const db = require("../../data/dbConfig");
 
 async function getAllTasks() {
-  const allTasks = await db("tasks");
-
-  return allTasks;
-}
-
-async function getTaskById(task_id) {
-  const taskRows = await db("tasks as t")
+  const rows = await db("tasks as t")
     .leftJoin("projects as p", "t.project_id", "p.project_id")
     .select(
       "t.task_id",
@@ -18,19 +10,49 @@ async function getTaskById(task_id) {
       "t.task_completed",
       "p.project_name",
       "p.project_description"
-    )
-    .where("t.task_id", task_id);
-
-  const task = {
-    task_id: taskRows[0].task_id,
-    task_notes: taskRows[0].task_notes,
-    task_description: taskRows[0].task_description,
-    task_completed: taskRows[0].task_completed == 1 ? true : false,
-    project_name: taskRows[0].project_name,
-    project_description: taskRows[0].project_description,
-  };
-
-  return task;
+    );
+  const result = rows.map((row) => {
+    return {
+      ...row,
+      task_completed: row.task_completed ? true : false,
+    };
+  });
+  return result;
 }
 
-module.exports = { getTaskById, getAllTasks };
+async function findTaskById(task_id) {
+  const taskRows = await db("tasks as t")
+    .leftJoin("projects as p", "t.project_id", "p.project_id")
+    .where("t.task_id", task_id)
+    .select(
+      "t.task_id",
+      "t.task_description",
+      "t.task_notes",
+      "t.task_completed",
+      "p.project_name",
+      "p.project_description"
+    );
+
+  const result = taskRows.map((row) => {
+    return {
+      ...row,
+      task_completed: row.task_completed ? true : false,
+    };
+  });
+
+  return result;
+}
+
+async function addTasks(task) {
+  const [newID] = await db("tasks").insert(task);
+  const newPost = await db("tasks").where("task_id", newID);
+  const result = newPost.map((row) => {
+    return {
+      ...row,
+      task_completed: row.task_completed ? true : false,
+    };
+  });
+  return result[0];
+}
+
+module.exports = { findTaskById, getAllTasks, addTasks };

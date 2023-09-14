@@ -18,6 +18,16 @@ router.get("/:resource_id", (req, res, next) => {
     .catch(next);
 });
 
+router.post("/", (req, res, next) => {
+  const resource = req.body;
+
+  Resource.addResources(resource)
+    .then((resource) => {
+      res.status(201).json(resource);
+    })
+    .catch(next);
+});
+
 //eslint-disable-next-line
 router.use("*", (err, req, res, next) => {
   res.status(500).json({

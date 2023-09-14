@@ -4,16 +4,26 @@ const Project = require("./model");
 
 router.get("/", (req, res, next) => {
   Project.getAllProjects(req.params.body)
-    .then((resource) => {
-      res.status(200).json(resource);
+    .then((project) => {
+      res.status(200).json(project);
     })
     .catch(next);
 });
 
 router.get("/:project_id", (req, res, next) => {
   Project.getProjectById(req.params.project_id)
-    .then((resource) => {
-      res.status(200).json(resource);
+    .then((project) => {
+      res.status(200).json(project);
+    })
+    .catch(next);
+});
+
+router.post("/", (req, res, next) => {
+  const project = req.body;
+
+  Project.addProjects(project)
+    .then((project) => {
+      res.status(201).json(project);
     })
     .catch(next);
 });
