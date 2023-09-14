@@ -8,13 +8,13 @@ const server = express();
 
 server.use(express.json());
 
-server.use("/api/project", projectRouter);
-server.use("/api/resource", resourceRouter);
-server.use("/api/task", taskRouter);
+server.use("/api/projects", projectRouter);
+server.use("/api/resources", resourceRouter);
+server.use("/api/tasks", taskRouter);
 
 //eslint-disable-next-line
 server.use("*", (req, res, next) => {
-  res.json({ api: `up ${req.baseUrl}` });
+  res.json({ api: "up" });
 });
 
 module.exports = server;

@@ -2,6 +2,14 @@
 const router = require("express").Router();
 const Task = require("./model");
 
+router.get("/", (req, res, next) => {
+  Task.getAllTasks(req.params.body)
+    .then((resource) => {
+      res.status(200).json(resource);
+    })
+    .catch(next);
+});
+
 router.get("/:task_id", (req, res, next) => {
   Task.getTaskById(req.params.task_id)
     .then((resource) => {

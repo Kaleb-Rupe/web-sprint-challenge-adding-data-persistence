@@ -1,17 +1,17 @@
 const projects = [
   {
-    project_name: "Broccoli Pesto Pasta",
-    project_description: "foo bar",
+    project_name: "Web API",
+    project_description: "Build APIs",
     project_completed: false,
   },
   {
-    project_name: "Lemon Chicken",
-    project_description: "foo bar",
+    project_name: "Web API",
+    project_description: "Build APIs",
     project_completed: false,
   },
   {
-    project_name: "Salmon en Papillote",
-    project_description: "foo bar",
+    project_name: "Web API",
+    project_description: "Build APIs",
     project_completed: false,
   },
 ];
@@ -39,39 +39,39 @@ const project_resources = [
 
 const tasks = [
   {
-    task_description: "Heat pan",
-    task_notes: 1,
-    task_completed: 1,
+    task_description: "Do foo",
+    task_notes: null,
+    task_completed: 0,
     project_id: 1,
   },
   {
-    task_description: "Add broccoli",
-    task_notes: 2,
-    task_completed: 1,
+    task_description: "Do foo",
+    task_notes: null,
+    task_completed: 0,
     project_id: 1,
   },
   {
-    task_description: "Add pesto mixed with pasta",
-    task_notes: 3,
-    task_completed: 1,
+    task_description: "Do foo",
+    task_notes: null,
+    task_completed: 0,
     project_id: 3,
   },
   {
-    task_description: "Heat oven",
-    task_notes: 1,
-    task_completed: 2,
+    task_description: "Do foo",
+    task_notes: null,
+    task_completed: 0,
     project_id: 2,
   },
   {
-    task_description: "Put chicken and lemon in oven",
-    task_notes: 2,
-    task_completed: 2,
+    task_description: "Do foo",
+    task_notes: null,
+    task_completed: 0,
     project_id: 1,
   },
   {
-    task_description: "Put in oven at 500 degrees",
-    task_notes: 3,
-    task_completed: 2,
+    task_description: "Do foo",
+    task_notes: null,
+    task_completed: 0,
     project_id: 3,
   },
 ];
